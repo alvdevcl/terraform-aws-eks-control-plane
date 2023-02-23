@@ -88,32 +88,32 @@ resource "aws_security_group" "api-sg" {
 #  url             = aws_eks_cluster.eks_control.identity.0.oidc.0.issuer
 #}
 
-resource "aws_servicecatalog_provisioned_product" "irsa" {
-  count = var.deploy_oidc_provider ? 1 : 0
-
-  name                       = "oidc-${var.eks_cluster_name}"
-  product_name               = "OIDC Provider for EKS cluster"
-  provisioning_artifact_name = var.oidc_sc_version
-  tags                       = var.tags
-
-  provisioning_parameters {
-    key   = "EKSClusterName"
-    value = var.eks_cluster_name
-  }
-
-  depends_on = [
-    aws_eks_cluster.eks_control
-  ]
-}
+#resource "aws_servicecatalog_provisioned_product" "irsa" {
+# count = var.deploy_oidc_provider ? 1 : 0
+#
+#  name                       = "oidc-${var.eks_cluster_name}"
+#  product_name               = "OIDC Provider for EKS cluster"
+#  provisioning_artifact_name = var.oidc_sc_version
+ # tags                       = var.tags
+#
+#  provisioning_parameters {
+#    key   = "EKSClusterName"
+#    value = var.eks_cluster_name
+#  }
+#
+#  depends_on = [
+#    aws_eks_cluster.eks_control
+#  ]
+#}
 
 #VPC-CNI add-on install
-resource "aws_eks_addon" "vpc_cni" {
-  cluster_name      = aws_eks_cluster.eks_control.name
-  addon_name        = "vpc-cni"
-  resolve_conflicts = var.vpc_cni_resolve_conflicts
-  addon_version     = var.vpc_cni_addon_version
-
-}
+#resource "aws_eks_addon" "vpc_cni" {
+#  cluster_name      = aws_eks_cluster.eks_control.name
+#  addon_name        = "vpc-cni"
+#  resolve_conflicts = var.vpc_cni_resolve_conflicts
+#  addon_version     = var.vpc_cni_addon_version
+#
+#}
 
 resource "aws_eks_addon" "kube-proxy" {
   depends_on   = [aws_eks_node_group.node-group-1]
