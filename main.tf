@@ -122,7 +122,7 @@ resource "aws_eks_addon" "kube-proxy" {
 }
 
 resource "aws_eks_addon" "coredns" {
-  depends_on   = [aws_eks_node_group.ng1]
+  depends_on   = [aws_eks_node_group.node-group-1]
   cluster_name = aws_eks_cluster.eks_control.name
   addon_name   = "coredns"
 }
