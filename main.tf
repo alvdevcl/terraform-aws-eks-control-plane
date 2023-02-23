@@ -107,13 +107,13 @@ resource "aws_security_group" "api-sg" {
 #}
 
 #VPC-CNI add-on install
-#resource "aws_eks_addon" "vpc_cni" {
-#  cluster_name      = aws_eks_cluster.eks_control.name
-#  addon_name        = "vpc-cni"
-#  resolve_conflicts = var.vpc_cni_resolve_conflicts
-#  addon_version     = var.vpc_cni_addon_version
-#
-#}
+resource "aws_eks_addon" "vpc_cni" {
+  cluster_name      = aws_eks_cluster.eks_control.name
+  addon_name        = "vpc-cni"
+  resolve_conflicts = var.vpc_cni_resolve_conflicts
+  addon_version     = var.vpc_cni_addon_version
+
+}
 
 resource "aws_eks_addon" "kube-proxy" {
   depends_on   = [aws_eks_node_group.node-group-1]
